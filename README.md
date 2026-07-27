@@ -1,29 +1,80 @@
-# Introduction
-This sale analysis explores the financial perfomance of Samsung Electronics products from 2021 until 2024.
-The project uses practice data from Kaggle, annual reports to identify consumer trends, percentage sales, best-selling poducts in Europe and popularity of 5G technology.
-For the sql queries I used check here : [Samsung sales performance analysis](sql_load_samsung).
-# Background
-The database used for this project can be accesed here [Practice database](samsung_global_sales_dataset.csv).
 
-### The questions I wanted to answer trough my SQL queries were:
-1. What is the percentage sales by country?
-2. What is the Annual report yoy growth?
-3. What is the popularity of 5G technology?
-4. What are the best-selling product in Europe?
-5. What are the top 5 products by revenue in 2024?
+# 📊 Samsung Sales Performance Analysis
 
-# Tools I used
-For my dive into the sales data, I harnessed the power of several tools:
-- **SQL:** The backbone of my analysis, allowing me to query the database and uncover essential information.
-- **PostgreSQL:** The ideal database management system to manage sales data.
-- **Visual Studio Code:** My go-to for database management and executing SQL queries.
-- **Power BI:** For create displayed visualizations and make it easier to read the selected data.
-- **Git and GitHub:** Essential for version control and sharing my SQL scripts and analysis, ensuring collaboration and project tracking.
-# The Analysis
-Each question in this project aimed to investigate specific aspects of product sales. Below I show you how I approached each question:
-## 1. Percentage sales by country
-To identify this percentage, I used a Common Table Expression (CTE) to build a temporary result set that performs three main tasks: *Aggregate* to sum the units sold for each unique combination of country and product name in the European region, *Country Totals* to calculate the grand total of all units sold in each country, and *Ranking* to assign a rank to the products in each country. The final selection consists of filtering by leaders to display the best-selling product for each country, then calculating the percentage and formatting the result.
-``` sql
+<div align="center">
+
+### SQL • PostgreSQL • Power BI • Data Analysis
+
+Analyze sales data • Discover trends • Generate business insights
+</div>
+
+---
+
+# 📌 Project Overview
+
+This project analyzes **Samsung Electronics sales data** between **2021 and 2024** using **SQL** and **Power BI**.
+
+The objective is to answer real business questions by exploring sales performance, revenue trends, customer preferences, and the adoption of **5G technology**.
+
+The dataset is based on practice data from **Kaggle** and was analyzed using **PostgreSQL**. Power BI was used to create dashboards that visualize the results.
+
+---
+
+# 🛠 Technologies Used
+
+- 💾 SQL
+- 🐘 PostgreSQL
+- 📊 Power BI
+- 💻 Visual Studio Code
+- 🌿 Git
+- 🐙 GitHub
+
+---
+# 📂 Dataset
+
+| Property | Value |
+|----------|-------|
+| Source | Kaggle Practice Dataset |
+| Period | 2021–2024 |
+| Industry | Consumer Electronics |
+| Database | PostgreSQL |
+
+---
+# ❓ Business Questions
+
+This project answers the following business questions:
+
+- [x] Percentage sales by country
+- [x] Year-over-Year (YoY) growth
+- [x] 5G technology adoption
+- [x] Best-selling products in Europe
+- [x] Top 5 products by revenue in 2024
+
+---
+---
+
+# 📈 Analysis
+
+---
+
+## 1️⃣ Percentage Sales by Country
+
+### 🎯 Business Question
+
+What is the sales share of each product within every European country?
+
+### 🧠 SQL Concepts Used
+
+- Common Table Expressions (CTE)
+- Window Functions
+- SUM()
+- RANK()
+- GROUP BY
+- Aggregation
+
+### 📝 SQL Query
+
+```sql
 --What is the share of each product in total sales in the country (percentage)
 WITH ProductSales AS (
     SELECT
@@ -47,16 +98,41 @@ SELECT
     ROUND ((Total_sold * 100.0) / country_total, 2) ::TEXT || '%' AS percentage
 FROM ProductSales; 
 ```
-- The result shows that the **highest percentage** in Belgium is for the Samsung Galaxy Tab A9+, with 48 units sold, and a percentage of **6.84%** of total sales in Europe.
+
+### 📊 Result
+
+The analysis identified the best-selling Samsung product in every European country and calculated its contribution to each country's total sales.
+
+For example, in **Belgium**, the **Samsung Galaxy Tab A9+** represented **6.84%** of total Samsung sales.
+
+### 📷 Power BI Dashboard
+
+<img width="601" height="358" alt="1 percent sales" src="https://github.com/user-attachments/assets/800e1d92-e68c-4862-9257-36f1cbba720f" />
 
 
-![Percentage](img/1.percent.sales.png)
+### 💡 Business Insight
 
-*Graphical representation in PowerBI of the percentage of sales by country in Europe*
+The analysis highlights product preferences across European markets and can support localized marketing strategies.
 
-## 2. Annual report YOY growth
-This SQL query performs a Year-over-Year (YoY) comparative analysis of sales volume for the European region. The LAG  function used at this part is the standard function for this type of analysis and here it calculate the percentage change between years.
-``` sql
+---
+
+## 2️⃣ Year-over-Year (YoY) Growth
+
+### 🎯 Business Question
+
+How have Samsung sales evolved each year?
+
+### 🧠 SQL Concepts Used
+
+- LAG()
+- CASE
+- EXTRACT()
+- Window Functions
+- Aggregation
+
+### 📝 SQL Query
+
+```sql
 --Annual report: extracting the year, calculating the total units sold, and using a function (LAG) to compare the results with the previous year.
 --Analyze increase and decrease.
 WITH YearlySale AS (
@@ -89,22 +165,40 @@ SELECT
     FROM YearlySale
     ORDER BY year DESC;
 ```
-The results show the percentage increase for each year compared to the previous year.
 
-![YOY report](img/yoy_report.png)
- 
- *The table resulting from the query*
+### 📊 Result
 
-![YOY report](img/yearly_sales_evolution.png)
+The analysis shows the yearly sales evolution and calculates the percentage increase or decrease compared to the previous year.
 
-*PowerBI yoy evolution*
+- 2022: **+3.37%**
+- 2023: **+0.93%**
+- 2024: **+1.68%**
 
-## 3. Popularity of 5G technology
+### 📷 Power BI Dashboard
 
-The goal here is to determine the market share of 5G technology. 
-This query is straightforward aggregartion designed to compare the sales perfomance of 5G_enabled products against non-5G products, applied to the global sales.
+<img width="605" height="358" alt="yearly_sales_evolution" src="https://github.com/user-attachments/assets/a3d3281d-7463-4cfa-9337-a13726249e85" />
 
-``` sql
+
+### 💡 Business Insight
+
+Although growth slowed during 2023, sales increased again in 2024, indicating continued market expansion.
+
+---
+
+## 3️⃣ Popularity of 5G Technology
+
+### 🎯 Business Question
+
+How popular are 5G-enabled Samsung devices?
+
+### 🧠 SQL Concepts Used
+
+- GROUP BY
+- Aggregation
+
+### 📝 SQL Query
+
+```sql
 --Product segmentation and specifications
 SELECT 
 is_5g,
@@ -113,20 +207,33 @@ FROM global_sales
 GROUP BY is_5g;
 ```
 
+### 📊 Result
 
-![5g_popularity](img/5g_vs_non_5g.png)
+Only **32.72%** of all products sold globally support **5G technology**.
 
-*This is the result of my query as a table*
+### 📷 Power BI Dashboard
 
-![5g_technology](img/5g_technology.png)
+<img width="602" height="333" alt="5g_technology" src="https://github.com/user-attachments/assets/6fb95762-1b6a-411e-b2d3-ccfcea395a29" />
 
-*PowerBi visualization for 5g vs. non-5g*
+### 💡 Business Insight
 
- After this analysis, I would say that 5G products are still a niche segment compared to older technologies.
+Although 5G adoption continues to grow, most customers still purchase non-5G devices, suggesting that affordability remains an important factor.
 
-## 4. The best-selling product in Europe
+---
 
-Now I want to find out which product is the most sought after in Europe. Using the query below, where I have filtered the European region from all products sold and placed them in descending order, it seems that the highest sales are for the Samsung Galaxy Tab S9 FE, with a total of 240 units sold during the analyzed period.
+## 4️⃣ Best-Selling Products in Europe
+
+### 🎯 Business Question
+
+Which Samsung products sold the most in Europe?
+
+### 🧠 SQL Concepts Used
+
+- GROUP BY
+- ORDER BY
+- LIMIT
+
+### 📝 SQL Query
 
 ```sql
 --The best-selling product in Europe
@@ -139,22 +246,36 @@ SELECT
     ORDER BY Total_sold DESC
     LIMIT 10;
 ```
-![Best-seller](img/best_selling_product_E.png)
 
-*Top 10 best-selling products in Europe.*
+### 📊 Result
 
-![Best-seller](img/best-selling_prod_vis.png)
+The **Samsung Galaxy Tab S9 FE** ranked as the best-selling Samsung product in Europe, with **240 units sold** during the analyzed period.
 
-*PowerBI visual for top 10 best-selling products in Europe*
+### 📷 Power BI Dashboard
 
+<img width="188" height="215" alt="best_selling_product_E" src="https://github.com/user-attachments/assets/cec0837f-0707-4c22-ad91-e3101bd02c8f" />
 
-## 5. Top 5 products by revenue in 2024
+### 💡 Business Insight
 
-To identify the totp 5 products by revenue sold globally in 2024 i used the query below.
-It takes the product names and calculates the revenue by multiplying the number of units sold by their price, filtering by the year, grouping by product name and ordering desc by total revenue so that the products with the highest revenue appears on the top.
+Tablet devices showed particularly strong demand in the European market.
 
+---
 
-``` sql
+## 5️⃣ Top 5 Products by Revenue (2024)
+
+### 🎯 Business Question
+
+Which Samsung products generated the highest revenue in 2024?
+
+### 🧠 SQL Concepts Used
+
+- SUM()
+- ORDER BY
+- LIMIT
+
+### 📝 SQL Query
+
+```sql
 --Top 5 products by revenue in 2024
  SELECT
      product_name,
@@ -166,28 +287,60 @@ ORDER BY total_revenue DESC
 LIMIT 5;
 ```
 
-![Top5 products](img/top5_by_revenue_globaly.png)
+### 📊 Result
 
-*The top 5 products by revenue, out of all units sold globally.*
+Top revenue-generating products:
 
-These 5 products analyzed recorded revenues between $89584.94 and $122511.42. 
+| Product | Revenue |
+|----------|---------:|
+| Samsung 65" OLED S95C | $122,511.42 |
+| Samsung Neo QLED 8K QN900C | $109,824.07 |
+| Samsung Galaxy Z Fold 5 | $105,707.85 |
+| Samsung French Door Refrigerator | $105,453.57 |
+| Samsung Galaxy Z Fold 4 | $89,584.94 |
 
 
-# What I Learned
+### 💡 Business Insight
 
-1. **Complex SQL skills** - Using SQL, I learned and applied from the simplest queries to advanced ones such as CTE, JOIN, operations, aggregations, GROUP BY, ORDER BY, LAG, RANK, strengthening my knowledge of manipulating data tables.
-2. **PowerBI skills** - Using PowerBI I learned how to do visual analysis of certain data sets by applying the .csv result of my SQL queries.
-3. **Analytical vision** -  I improved my real-world puzzle solving skills by turning questions into useful SQL queries and adding visual analysis to the result. Using these two powerful tools together, I was able to render the analysis results in two easy-to-read and analyze ways.
+Premium devices generated the highest revenue despite lower sales volumes, highlighting the importance of high-value product segments.
 
-## Insights 
+---
 
-- **Percentage sales by country** : Analyzing the percentage of sales by country in Europe, it seems that Belgium sold the most products, with a percentage of 6.84% and the lowest was in Austria with a percentage of 3.41%.
-- **Annual report YoY (year-over-year) growth**: Analyzing the YoY increases of global sales percentage, starting with 2021 and up to 2024 inclusive, it appears that in 2022 the growth is 3.37%, a slow one in 2023 of only 0.93%, and in 2024 the percentage increases to 1.68%. 
-- **Popularity of 5G technology**: 
-Of all products sold globally, only 32.72% are 5G, and the remaining 67.28% shows that buyers were more attracted to products that did not include this technology.
-- **The best-selling product in Europe**: 
-Samsung Galaxy Tab S9 FE is the most wanted product in Europe with a total of 240 units sold during the years analyzed.
-- **Top 5 products by revenue in 2024**:
-Samsung's 65-inch OLED S95C is the product that generated the most revenue in 2024, reaching a total of $122,511.42. Followed by the Samsung Neo QLED 8K QN900C, which generated $109,824.07, then Samsung Galaxy Z Fold 5, which brought in $105,707.85, and very closely by the Samsung French Door refrigerator with $105,453.57. In 5th place was the Samsung Galaxy Z Fold 4, with $89,584.94.
-### Closing Thoughts
-Working on this project I learned a lot of skills for both SQL and PowerBI. I understood how to put my interogations in queries to can find answers regarding data analysis. During this project I improved my knowledge of what a database really is and how data structures work. This project not only improved my skills, but also made me have an analytical mindset, a better structured overview and move from learning concepts to applying them in real analyses.
+# 📌 Key Takeaways
+
+During this project I strengthened my skills in:
+
+- Advanced SQL Queries
+- PostgreSQL
+- Data Aggregation
+- Window Functions
+- Power BI Dashboards
+- Data Visualization
+- Business Analysis
+- Analytical Thinking
+
+This project helped me transform raw sales data into meaningful business insights using SQL and Power BI.
+
+---
+
+# 🚀 Future Improvements
+
+- Expand the analysis with customer segmentation
+- Create interactive Power BI dashboards
+- Add sales forecasting
+- Build a PostgreSQL database from raw CSV files
+- Include additional KPI analysis
+
+---
+---
+
+# 👩‍💻 About the Author
+
+## Florina Simeria
+
+Software Quality Assurance Engineer
+
+Passionate about SQL, Test Automation and Data Analysis.
+
+- 💼 LinkedIn: https://www.linkedin.com/in/florina-simeria-353a553a9/
+- 🐙 GitHub: https://github.com/florinasimeria
