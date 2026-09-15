@@ -251,7 +251,7 @@ SELECT
 
 The **Samsung Galaxy Tab S9 FE** ranked as the best-selling Samsung product in Europe, with **240 units sold** during the analyzed period.
 
-### 📷 Power BI Dashboard
+### 📷 SQL result table
 
 <img width="188" height="215" alt="best_selling_product_E" src="https://github.com/user-attachments/assets/cec0837f-0707-4c22-ad91-e3101bd02c8f" />
 
