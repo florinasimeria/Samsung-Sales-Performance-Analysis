@@ -338,7 +338,7 @@ This project helped me transform raw sales data into meaningful business insight
 
 ## Florina Simeria
 
-Software Quality Assurance Engineer
+Software Quality Assurance 
 
 Passionate about SQL, Test Automation and Data Analysis.
 
